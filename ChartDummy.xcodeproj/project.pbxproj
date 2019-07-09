@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5358A21CD09A1C46EFE9494C /* Pods_ChartDummy.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 517CB9B51A6D091A039B2859 /* Pods_ChartDummy.framework */; };
 		97270D8A22D3F0E200D08AF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97270D8922D3F0E200D08AF6 /* AppDelegate.swift */; };
 		97270D8C22D3F0E200D08AF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97270D8B22D3F0E200D08AF6 /* ViewController.swift */; };
 		97270D8F22D3F0E200D08AF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97270D8D22D3F0E200D08AF6 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0F4E6668F07C1E9F5ABD5EBD /* Pods-ChartDummy.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartDummy.debug.xcconfig"; path = "Target Support Files/Pods-ChartDummy/Pods-ChartDummy.debug.xcconfig"; sourceTree = "<group>"; };
+		517CB9B51A6D091A039B2859 /* Pods_ChartDummy.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChartDummy.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		97270D8622D3F0E200D08AF6 /* ChartDummy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChartDummy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97270D8922D3F0E200D08AF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97270D8B22D3F0E200D08AF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		97270D9022D3F0E300D08AF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97270D9322D3F0E300D08AF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97270D9522D3F0E300D08AF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D2C2015F3E2EAB30D67D0D46 /* Pods-ChartDummy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartDummy.release.xcconfig"; path = "Target Support Files/Pods-ChartDummy/Pods-ChartDummy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5358A21CD09A1C46EFE9494C /* Pods_ChartDummy.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4DA0180F16AD682FF1A2EEFE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				517CB9B51A6D091A039B2859 /* Pods_ChartDummy.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		97270D7D22D3F0E200D08AF6 = {
 			isa = PBXGroup;
 			children = (
 				97270D8822D3F0E200D08AF6 /* ChartDummy */,
 				97270D8722D3F0E200D08AF6 /* Products */,
+				A6F6286FF277600C4044FD2E /* Pods */,
+				4DA0180F16AD682FF1A2EEFE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +79,16 @@
 			path = ChartDummy;
 			sourceTree = "<group>";
 		};
+		A6F6286FF277600C4044FD2E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				0F4E6668F07C1E9F5ABD5EBD /* Pods-ChartDummy.debug.xcconfig */,
+				D2C2015F3E2EAB30D67D0D46 /* Pods-ChartDummy.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +96,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 97270D9822D3F0E300D08AF6 /* Build configuration list for PBXNativeTarget "ChartDummy" */;
 			buildPhases = (
+				2DCF19B55C36E84E5DF6DFE7 /* [CP] Check Pods Manifest.lock */,
 				97270D8222D3F0E200D08AF6 /* Sources */,
 				97270D8322D3F0E200D08AF6 /* Frameworks */,
 				97270D8422D3F0E200D08AF6 /* Resources */,
+				9ADDB74E79C03009E4C483C4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -129,6 +156,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2DCF19B55C36E84E5DF6DFE7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ChartDummy-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9ADDB74E79C03009E4C483C4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChartDummy/Pods-ChartDummy-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ChartDummy/Pods-ChartDummy-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ChartDummy/Pods-ChartDummy-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		97270D8222D3F0E200D08AF6 /* Sources */ = {
@@ -280,6 +349,7 @@
 		};
 		97270D9922D3F0E300D08AF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0F4E6668F07C1E9F5ABD5EBD /* Pods-ChartDummy.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -297,6 +367,7 @@
 		};
 		97270D9A22D3F0E300D08AF6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2C2015F3E2EAB30D67D0D46 /* Pods-ChartDummy.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
