@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,8 @@
 		97270D8F22D3F0E200D08AF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97270D8D22D3F0E200D08AF6 /* Main.storyboard */; };
 		97270D9122D3F0E300D08AF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97270D9022D3F0E300D08AF6 /* Assets.xcassets */; };
 		97270D9422D3F0E300D08AF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97270D9222D3F0E300D08AF6 /* LaunchScreen.storyboard */; };
+		97270D9D22D509B500D08AF6 /* DayAxisValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97270D9C22D509B500D08AF6 /* DayAxisValueFormatter.swift */; };
+		97270D9F22D5241800D08AF6 /* MockProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97270D9E22D5241800D08AF6 /* MockProgress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		97270D9022D3F0E300D08AF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97270D9322D3F0E300D08AF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97270D9522D3F0E300D08AF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		97270D9C22D509B500D08AF6 /* DayAxisValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DayAxisValueFormatter.swift; sourceTree = "<group>"; };
+		97270D9E22D5241800D08AF6 /* MockProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockProgress.swift; sourceTree = "<group>"; };
 		D2C2015F3E2EAB30D67D0D46 /* Pods-ChartDummy.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartDummy.release.xcconfig"; path = "Target Support Files/Pods-ChartDummy/Pods-ChartDummy.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -69,6 +73,8 @@
 		97270D8822D3F0E200D08AF6 /* ChartDummy */ = {
 			isa = PBXGroup;
 			children = (
+				97270D9C22D509B500D08AF6 /* DayAxisValueFormatter.swift */,
+				97270D9E22D5241800D08AF6 /* MockProgress.swift */,
 				97270D8922D3F0E200D08AF6 /* AppDelegate.swift */,
 				97270D8B22D3F0E200D08AF6 /* ViewController.swift */,
 				97270D8D22D3F0E200D08AF6 /* Main.storyboard */,
@@ -85,7 +91,6 @@
 				0F4E6668F07C1E9F5ABD5EBD /* Pods-ChartDummy.debug.xcconfig */,
 				D2C2015F3E2EAB30D67D0D46 /* Pods-ChartDummy.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -204,7 +209,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97270D9F22D5241800D08AF6 /* MockProgress.swift in Sources */,
 				97270D8C22D3F0E200D08AF6 /* ViewController.swift in Sources */,
+				97270D9D22D509B500D08AF6 /* DayAxisValueFormatter.swift in Sources */,
 				97270D8A22D3F0E200D08AF6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
