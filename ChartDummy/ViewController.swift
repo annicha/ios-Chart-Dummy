@@ -38,66 +38,15 @@ class ViewController: UIViewController {
         barChartView.scaleXEnabled = false
         barChartView.scaleYEnabled = false
         
-        let goalEntries: [BarChartDataEntry] = {
-            var entries: [BarChartDataEntry] = []
-            
-            guard let startDate = MockProgress.shared.startDate else { return []}
-            print("startdate: \(DateHelper.dateStringFrom(date: startDate))")
-            let diff = Calendar.current.dateComponents([.day], from: startDate, to: Date())
-            let dayDiff = diff.day
-            
-            if let difference = dayDiff,
-                difference <= 7 {
-                for (index, goal) in MockProgress.shared.goal.enumerated() {
-                    guard let dayDiff = dayDiff,
-                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
-                }
-            } else {
-                let latestProgress = MockProgress.shared.goal.dropFirst(MockProgress.shared.goal.count - 7)
-                for (index, goal) in latestProgress.enumerated() {
-                    guard let dayDiff = dayDiff,
-                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
-                }
-            }
-            
-            return entries
-        }()
-        
-        
-        let goalSet = BarChartDataSet(entries: goalEntries, label: "Goal")
-        goalSet.setColor(UIColor.blue)
-        
-        let actualEntries: [BarChartDataEntry] = {
-            var entries: [BarChartDataEntry] = []
-            
-            guard let startDate = MockProgress.shared.startDate else { return []}
+        let goalEntries: [BarChartDataEntry] = getEntry(fromArray: MockProgress.shared.goal)
+        let actualEntries: [BarChartDataEntry] = getEntry(fromArray: MockProgress.shared.progress)
 
-            let dayDiff = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day
-            
-            if let difference = dayDiff,
-                difference <= 7 {
-                for (index, progress) in MockProgress.shared.progress.enumerated() {
-                    guard let dayDiff = dayDiff,
-                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(progress))]
-                }
-            } else {
-                let latestProgress = MockProgress.shared.progress.dropFirst(MockProgress.shared.progress.count - 7)
-                for (index, progress) in latestProgress.enumerated() {
-                    guard let dayDiff = dayDiff,
-                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(progress))]
-                }
-            }
-            
-            return entries
-        }()
-        
+        let goalSet = BarChartDataSet(entries: goalEntries, label: "Goal")
         let actualSet = BarChartDataSet(entries: actualEntries, label: "Actual")
+
+        goalSet.setColor(UIColor.blue)
         actualSet.setColor(UIColor.green)
-        
+
         let groupData = BarChartData(dataSets: [goalSet, actualSet])
         
         groupData.barWidth = barWidth
@@ -118,6 +67,26 @@ class ViewController: UIViewController {
         rightAxis.axisMinimum = 0
         
         barChartView.notifyDataSetChanged()
+    }
+    
+    func getProgressArray(fromArray array: [Int], fromDiff diff: Int, atNumberOfDays days: Int) -> [Int] {
+        let droppedFirstArray = array.dropFirst(diff - days + 1)
+        return droppedFirstArray.dropLast(array.count - diff - 1)
+    }
+    
+    func getEntry(fromArray array: [Int]) -> [BarChartDataEntry] {
+        var entries: [BarChartDataEntry] = []
+        
+        guard let startDate = MockProgress.shared.startDate,
+            let dayDiff = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day else { return []}
+        
+        let selectedPortion = getProgressArray(fromArray: array, fromDiff: dayDiff, atNumberOfDays: 7)
+        
+        for (index, amount) in selectedPortion.enumerated() {
+            entries += [BarChartDataEntry(x: Double(index + 1), y: Double(amount))]
+        }
+        
+        return entries
     }
 }
 
