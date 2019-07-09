@@ -14,6 +14,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let date = MockProgress.shared.startDate {
+            print(MockProgress.shared.goal.count)
+            print(DateHelper.dateStringFrom(date: date))
+            print(Calendar.current.dateComponents([.day], from: date, to: Date()).day)
+        }
         
         /* Goal vs actual history chart */
         setUpHistoryBar()
@@ -36,13 +41,27 @@ class ViewController: UIViewController {
         let goalEntries: [BarChartDataEntry] = {
             var entries: [BarChartDataEntry] = []
             
-            let dayDiff = Calendar.current.dateComponents([.day], from: MockProgress.shared.startDate, to: Date()).day
+            guard let startDate = MockProgress.shared.startDate else { return []}
+            print("startdate: \(DateHelper.dateStringFrom(date: startDate))")
+            let diff = Calendar.current.dateComponents([.day], from: startDate, to: Date())
+            let dayDiff = diff.day
             
-            for (index, goal) in MockProgress.shared.goal.enumerated() {
-                guard let dayDiff = dayDiff,
-                    index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
+            if let difference = dayDiff,
+                difference <= 7 {
+                for (index, goal) in MockProgress.shared.goal.enumerated() {
+                    guard let dayDiff = dayDiff,
+                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
+                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
+                }
+            } else {
+                let latestProgress = MockProgress.shared.goal.dropFirst(MockProgress.shared.goal.count - 7)
+                for (index, goal) in latestProgress.enumerated() {
+                    guard let dayDiff = dayDiff,
+                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
+                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
+                }
             }
+            
             return entries
         }()
         
@@ -52,13 +71,27 @@ class ViewController: UIViewController {
         
         let actualEntries: [BarChartDataEntry] = {
             var entries: [BarChartDataEntry] = []
-            let dayDiff = Calendar.current.dateComponents([.day], from: MockProgress.shared.startDate, to: Date()).day
             
-            for (index, goal) in MockProgress.shared.progress.enumerated() {
-                guard let dayDiff = dayDiff,
-                    index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
-                entries += [BarChartDataEntry(x: Double(index + 1), y: Double(goal))]
+            guard let startDate = MockProgress.shared.startDate else { return []}
+
+            let dayDiff = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day
+            
+            if let difference = dayDiff,
+                difference <= 7 {
+                for (index, progress) in MockProgress.shared.progress.enumerated() {
+                    guard let dayDiff = dayDiff,
+                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
+                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(progress))]
+                }
+            } else {
+                let latestProgress = MockProgress.shared.progress.dropFirst(MockProgress.shared.progress.count - 7)
+                for (index, progress) in latestProgress.enumerated() {
+                    guard let dayDiff = dayDiff,
+                        index <= dayDiff else { print("🍒 Index is higher than diffday. Printing from \(#function) \n In \(String(describing: MockProgress.self)) 🍒"); break}
+                    entries += [BarChartDataEntry(x: Double(index + 1), y: Double(progress))]
+                }
             }
+            
             return entries
         }()
         

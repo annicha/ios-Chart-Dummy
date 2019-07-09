@@ -17,11 +17,9 @@ public class DayAxisValueFormatter: NSObject, IAxisValueFormatter {
     }
     
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        let value = Int(value - 1.0)
+        let value = Int(value)
         
-        let date = Calendar.current.date(byAdding: .day, value: value, to: MockProgress.shared.startDate)
-        
-        guard let currentDate = date else { return "error"}
+        guard let currentDate = Calendar.current.date(byAdding: .day, value: -(7 - value), to: Date()) else { return "error"}
 
         return Calendar.current.isDateInToday(currentDate) ? "Today" : DateHelper.dateStringFrom(date: currentDate)
 

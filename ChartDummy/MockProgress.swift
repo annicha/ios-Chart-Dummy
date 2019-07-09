@@ -22,8 +22,7 @@ class MockProgress {
     static let shared = MockProgress()
     private init (){}
     
-    let startDate = Date(timeIntervalSince1970: 1562182964)
-    let goal = [7, 7, 5, 5, 5, 0, 0]
-    let progress = [0, 7, 8, 10, 12, 0, 0]
-    
+    let goal = [7, 7, 5, 5, 7, 0, 9, 5, 5, 5, 13, 5, 5, 9, 6]
+    let progress = [7, 3, 1, 5, 5, 0, 0, 2, 3, 2, 13, 0, 5, 5, 6]
+    var startDate = Calendar.current.date(byAdding: .day, value: -12, to: Date())
 }
