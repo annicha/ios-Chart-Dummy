@@ -12,7 +12,6 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var barChartView: BarChartView!
     
-    
     lazy var customFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.allowsFloats = false
@@ -21,11 +20,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let date = MockProgress.shared.startDate {
-            print(MockProgress.shared.goal.count)
-            print(DateHelper.dateStringFrom(date: date))
-            print(Calendar.current.dateComponents([.day], from: date, to: Date()).day)
-        }
         
         /* Goal vs actual history chart */
         setUpHistoryBar()
