@@ -25,23 +25,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forecast (minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F5e-O2-5Zr">
-                                <rect key="frame" x="20" y="445" width="144" height="21"/>
+                                <rect key="frame" x="20" y="345" width="144" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-pt-THN" customClass="CombinedChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="486" width="374" height="300"/>
+                                <rect key="frame" x="20" y="386" width="374" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="0M5-ur-2TR"/>
+                                    <constraint firstAttribute="height" constant="200" id="RGx-Tn-QEF"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="137-VW-Nh4" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="105" width="374" height="300"/>
+                                <rect key="frame" x="20" y="105" width="374" height="200"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="300" id="6iu-Vl-Odc"/>
+                                    <constraint firstAttribute="height" constant="200" id="nyg-1n-SoC"/>
                                 </constraints>
                             </view>
                         </subviews>

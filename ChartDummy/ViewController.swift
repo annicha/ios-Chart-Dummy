@@ -23,8 +23,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("🍒🍒 StartDate: \(MockProgress.shared.startDate) ")
+        
+//        print(ChartDataController.shared.getPlannedEntriesNextWeek(fromArray: MockProgress.shared.goal))
+        
         /* Goal vs actual history chart */
         setUpHistoryChart()
+        
+        setupCombinedChart()
     }
 
     func setUpHistoryChart(){
@@ -41,8 +47,8 @@ class ViewController: UIViewController {
         barChartView.scaleXEnabled = false
         barChartView.scaleYEnabled = false
         
-        let goalEntries: [BarChartDataEntry] = getEntry(fromArray: MockProgress.shared.goal)
-        let actualEntries: [BarChartDataEntry] = getEntry(fromArray: MockProgress.shared.progress)
+        let goalEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.goal)
+        let actualEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.progress)
 
         let goalSet = BarChartDataSet(entries: goalEntries, label: "Goal")
         let actualSet = BarChartDataSet(entries: actualEntries, label: "Actual")
@@ -75,25 +81,7 @@ class ViewController: UIViewController {
         barChartView.notifyDataSetChanged()
     }
     
-    func getProgressArray(fromArray array: [Int], fromDiff diff: Int, atNumberOfDays days: Int) -> [Int] {
-        let droppedFirstArray = array.dropFirst(diff - days + 1)
-        return droppedFirstArray.dropLast(array.count - diff - 1)
-    }
-    
-    func getEntry(fromArray array: [Int]) -> [BarChartDataEntry] {
-        var entries: [BarChartDataEntry] = []
-        
-        guard let startDate = MockProgress.shared.startDate,
-            let dayDiff = Calendar.current.dateComponents([.day], from: startDate, to: Date()).day else { return []}
-        
-        let selectedPortion = getProgressArray(fromArray: array, fromDiff: dayDiff, atNumberOfDays: 7)
-        
-        for (index, amount) in selectedPortion.enumerated() {
-            entries += [BarChartDataEntry(x: Double(index + 1), y: Double(amount))]
-        }
-        
-        return entries
-    }
+   
     
     
     /* ----------------------
@@ -102,8 +90,86 @@ class ViewController: UIViewController {
      
     --------------------------*/
     
-    func setUpForcastChart(){
+    func setupCombinedChart(){
         
+        combinedChartView.pinchZoomEnabled = false
+        combinedChartView.scaleXEnabled = false
+        combinedChartView.scaleYEnabled = false
+        
+        combinedChartView.chartDescription?.enabled = true
+        
+        combinedChartView.drawBarShadowEnabled = false
+        combinedChartView.highlightFullBarEnabled = true
+        
+        combinedChartView.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue]
+        
+        let data = CombinedChartData()
+        data.lineData = generateAccumulativeLineChartData()
+        data.barData = generateEstimatedWorkBarChartData()
+        
+        
+        /* set up labels */
+        let xAxis = combinedChartView.xAxis
+        xAxis.labelPosition = .bottom
+        xAxis.labelFont = .systemFont(ofSize: 9)
+        xAxis.axisMinimum = 0.5
+        
+        xAxis.valueFormatter = ForecastAxisValueFormatter(chart: combinedChartView)
+        
+        let leftAxis = combinedChartView.leftAxis
+        leftAxis.axisMinimum = 0
+        
+        let rightAxis = combinedChartView.rightAxis
+        rightAxis.axisMinimum = 0
+        
+        combinedChartView.data = data
+        
+        combinedChartView.setVisibleXRangeMinimum(8.0)
+        
+    }
+    
+    func generateAccumulativeLineChartData() -> LineChartData {
+        let goalEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.goal)
+        
+        let set = LineChartDataSet(entries: goalEntries, label: "Something")
+        set.setColor(UIColor(red: 240/255, green: 238/255, blue: 70/255, alpha: 1))
+        set.lineWidth = 2.5
+        set.setCircleColor(UIColor(red: 240/255, green: 238/255, blue: 70/255, alpha: 1))
+        set.circleRadius = 5
+        set.circleHoleRadius = 2.5
+        set.fillColor = UIColor(red: 240/255, green: 238/255, blue: 70/255, alpha: 1)
+        set.mode = .cubicBezier
+        set.drawValuesEnabled = false
+        set.valueFont = .systemFont(ofSize: 10)
+        set.valueTextColor = UIColor(red: 240/255, green: 238/255, blue: 70/255, alpha: 1)
+        
+        set.axisDependency = .left
+        
+        return LineChartData(dataSet: set)
+    }
+    
+    func generateEstimatedWorkBarChartData() -> BarChartData {
+        let groupSpace = 0.5
+        let barSpace = 0.0
+        let barWidth = 0.25
+        
+        let goalEntries: [BarChartDataEntry] = ChartDataController.shared.getPlannedEntriesNextWeek(fromArray: MockProgress.shared.goal)
+        let goalEntries2: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.goal)
+        
+        let goalSet = BarChartDataSet(entries: goalEntries, label: "Planned")
+        let goalSet2 = BarChartDataSet(entries: goalEntries2, label: "A Copy")
+        goalSet.setColor(UIColor.red)
+        goalSet2.setColor(UIColor.gray)
+        
+        goalSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+        goalSet2.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+
+        
+        let groupData = BarChartData(dataSets: [goalSet, goalSet2])
+        groupData.barWidth = barWidth
+        groupData.groupBars(fromX: groupSpace, groupSpace: groupSpace, barSpace: barSpace)
+        
+        return groupData
     }
 }
 
