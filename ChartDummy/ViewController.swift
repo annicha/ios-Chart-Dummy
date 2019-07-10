@@ -12,6 +12,8 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var barChartView: BarChartView!
     
+    @IBOutlet weak var combinedChartView: CombinedChartView!
+    
     lazy var customFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.allowsFloats = false
@@ -22,10 +24,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         /* Goal vs actual history chart */
-        setUpHistoryBar()
+        setUpHistoryChart()
     }
 
-    func setUpHistoryBar(){
+    func setUpHistoryChart(){
     
         let groupSpace = 0.5
         let barSpace = 0.0
@@ -91,6 +93,17 @@ class ViewController: UIViewController {
         }
         
         return entries
+    }
+    
+    
+    /* ----------------------
+ 
+     Second Chart Stuff
+     
+    --------------------------*/
+    
+    func setUpForcastChart(){
+        
     }
 }
 

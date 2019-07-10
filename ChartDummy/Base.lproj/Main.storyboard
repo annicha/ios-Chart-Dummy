@@ -18,8 +18,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Math Workbook Study History" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mYi-Vo-ZLl">
+                                <rect key="frame" x="20" y="64" width="230" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forecast (minutes)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="F5e-O2-5Zr">
+                                <rect key="frame" x="20" y="445" width="144" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mN8-pt-THN" customClass="CombinedChartView" customModule="Charts">
+                                <rect key="frame" x="20" y="486" width="374" height="300"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="0M5-ur-2TR"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="137-VW-Nh4" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="20" y="64" width="374" height="300"/>
+                                <rect key="frame" x="20" y="105" width="374" height="300"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="6iu-Vl-Odc"/>
@@ -28,14 +47,22 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="mN8-pt-THN" firstAttribute="top" secondItem="F5e-O2-5Zr" secondAttribute="bottom" constant="20" id="1Y5-3l-ajn"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="137-VW-Nh4" secondAttribute="trailing" constant="20" id="2qq-Oc-NGi"/>
-                            <constraint firstItem="137-VW-Nh4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="ccq-6s-Ptt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mN8-pt-THN" secondAttribute="trailing" constant="20" id="7Hk-G9-Wpw"/>
+                            <constraint firstItem="mYi-Vo-ZLl" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="Hga-Qm-07g"/>
+                            <constraint firstItem="137-VW-Nh4" firstAttribute="top" secondItem="mYi-Vo-ZLl" secondAttribute="bottom" constant="20" id="K45-hj-NMo"/>
+                            <constraint firstItem="F5e-O2-5Zr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Qry-qi-gA5"/>
+                            <constraint firstItem="F5e-O2-5Zr" firstAttribute="top" secondItem="137-VW-Nh4" secondAttribute="bottom" constant="40" id="fdO-Jg-zR4"/>
+                            <constraint firstItem="mYi-Vo-ZLl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="h5N-Pc-aQJ"/>
+                            <constraint firstItem="mN8-pt-THN" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="rZM-aq-kFa"/>
                             <constraint firstItem="137-VW-Nh4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="s63-cq-24T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="barChartView" destination="137-VW-Nh4" id="Dc2-HW-Abt"/>
+                        <outlet property="combinedChartView" destination="mN8-pt-THN" id="AgP-sF-qOb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
