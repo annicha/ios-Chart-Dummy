@@ -12,6 +12,13 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var barChartView: BarChartView!
     
+    
+    lazy var customFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = false
+        return formatter
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if let date = MockProgress.shared.startDate {
@@ -46,7 +53,10 @@ class ViewController: UIViewController {
 
         goalSet.setColor(UIColor.blue)
         actualSet.setColor(UIColor.green)
-
+        
+        goalSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+        actualSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+        
         let groupData = BarChartData(dataSets: [goalSet, actualSet])
         
         groupData.barWidth = barWidth
