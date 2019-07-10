@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var combinedChartView: CombinedChartView!
     
-    lazy var customFormatter: NumberFormatter = {
+    // formatter for removing floting point
+    lazy var noFloatFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
         formatter.allowsFloats = false
         return formatter
@@ -23,21 +24,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("🍒🍒 StartDate: \(MockProgress.shared.startDate) ")
-        
-//        print(ChartDataController.shared.getPlannedEntriesNextWeek(fromArray: MockProgress.shared.goal))
-        
         /* Goal vs actual history chart */
         setUpHistoryChart()
         
-        setupCombinedChart()
+        /* Prediction Chart */
+        setupPredictionChart()
     }
 
-    func setUpHistoryChart(){
     
-        let groupSpace = 0.5
-        let barSpace = 0.0
-        let barWidth = 0.25
+    // MARK: - Chart
+    func setUpHistoryChart(){
         
         // make description appear on top
         barChartView.drawValueAboveBarEnabled = true
@@ -47,26 +43,37 @@ class ViewController: UIViewController {
         barChartView.scaleXEnabled = false
         barChartView.scaleYEnabled = false
         
+        // create entries
         let goalEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.goal)
         let actualEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.progress)
 
+        /* SETS */
+        // create chart set from entries
         let goalSet = BarChartDataSet(entries: goalEntries, label: "Goal")
         let actualSet = BarChartDataSet(entries: actualEntries, label: "Actual")
 
+        // Colors
         goalSet.setColor(UIColor.blue)
         actualSet.setColor(UIColor.green)
         
-        goalSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
-        actualSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+        // Remove 0 from label value
+        goalSet.valueFormatter = DefaultValueFormatter(formatter: noFloatFormatter)
+        actualSet.valueFormatter = DefaultValueFormatter(formatter: noFloatFormatter)
         
         let groupData = BarChartData(dataSets: [goalSet, actualSet])
+        
+        
+        // set up spaces and size
+        let groupSpace = 0.5
+        let barSpace = 0.0
+        let barWidth = 0.25
         
         groupData.barWidth = barWidth
         barChartView.data = groupData
         
         groupData.groupBars(fromX: groupSpace, groupSpace: groupSpace, barSpace: barSpace)
         
-        /* set up labels */
+        /* set up label appearance */
         let xAxis = barChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .systemFont(ofSize: 10)
@@ -81,16 +88,7 @@ class ViewController: UIViewController {
         barChartView.notifyDataSetChanged()
     }
     
-   
-    
-    
-    /* ----------------------
- 
-     Second Chart Stuff
-     
-    --------------------------*/
-    
-    func setupCombinedChart(){
+    func setupPredictionChart(){
         
         combinedChartView.pinchZoomEnabled = false
         combinedChartView.scaleXEnabled = false
@@ -101,6 +99,7 @@ class ViewController: UIViewController {
         combinedChartView.drawBarShadowEnabled = false
         combinedChartView.highlightFullBarEnabled = true
         
+        // assign data to chart
         combinedChartView.drawOrder = [DrawOrder.bar.rawValue, DrawOrder.line.rawValue]
         
         let data = CombinedChartData()
@@ -108,7 +107,7 @@ class ViewController: UIViewController {
         data.barData = generateEstimatedWorkBarChartData()
         
         
-        /* set up labels */
+        /* set up labels appearance */
         let xAxis = combinedChartView.xAxis
         xAxis.labelPosition = .bottom
         xAxis.labelFont = .systemFont(ofSize: 9)
@@ -124,9 +123,11 @@ class ViewController: UIViewController {
         
         combinedChartView.data = data
         
+        // Make sure the chart does not clip off
         combinedChartView.setVisibleXRangeMinimum(8.0)
         
     }
+    
     
     func generateAccumulativeLineChartData() -> LineChartData {
         let goalEntries: [BarChartDataEntry] = ChartDataController.shared.getPastWeekEntries(fromArray: MockProgress.shared.goal)
@@ -161,8 +162,8 @@ class ViewController: UIViewController {
         goalSet.setColor(UIColor.red)
         goalSet2.setColor(UIColor.gray)
         
-        goalSet.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
-        goalSet2.valueFormatter = DefaultValueFormatter(formatter: customFormatter)
+        goalSet.valueFormatter = DefaultValueFormatter(formatter: noFloatFormatter)
+        goalSet2.valueFormatter = DefaultValueFormatter(formatter: noFloatFormatter)
 
         
         let groupData = BarChartData(dataSets: [goalSet, goalSet2])

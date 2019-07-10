@@ -13,7 +13,7 @@ class ChartDataController {
     
     static let shared = ChartDataController()
     
-    
+    /* Methods for getting needed part of the log */
     func getSelectedPartWeekBefore(fromArray array: [Int], fromDiff diff: Int, atNumberOfDays days: Int) -> [Int] {
         let droppedFirstArray = array.dropFirst(diff - days + 1)
         return droppedFirstArray.dropLast(array.count - diff - 1)
@@ -27,6 +27,10 @@ class ChartDataController {
         return droppedFirstArray.dropLast(array.count - diff - days)
     }
     
+    
+    /* Method for turn partial array into actual chart entry */
+    
+    // Past week log
     func getPastWeekEntries(fromArray array: [Int]) -> [BarChartDataEntry] {
         var entries: [BarChartDataEntry] = []
         
@@ -45,6 +49,7 @@ class ChartDataController {
         return entries
     }
     
+    // Next week log
     func getPlannedEntriesNextWeek(fromArray array: [Int]) -> [BarChartDataEntry]{
         var entries: [BarChartDataEntry] = []
         
@@ -59,4 +64,12 @@ class ChartDataController {
         
         return entries
     }
+    
+    /* Predictions */
+    
+    // Accumulation with 0 work perday
+    
+    // Accumulation with some work at same amount everyday
+    
+    // Accumulation at average amount every day
 }
